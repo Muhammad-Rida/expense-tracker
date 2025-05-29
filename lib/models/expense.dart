@@ -53,3 +53,25 @@ class Expense {
     };
   }
 }
+
+// A new class that sums up all the expenses in one category to display them in the chart
+class ExpenseBucket {
+  const ExpenseBucket({required this.category, required this.expenses});
+
+  // add an extra named constructor to filter out expenses that belong to a specific category
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+      : expenses = allExpenses
+            .where((expense) => expense.category == category)
+            .toList();
+
+  final Category category;
+  final List<Expense> expenses;
+
+  double get totalExpenses {
+    double sum = 0;
+    for (Expense e in expenses) {
+      sum += e.amount;
+    }
+    return sum;
+  }
+}

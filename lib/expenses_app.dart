@@ -1,16 +1,17 @@
-import 'package:expense_tracker/db/expense_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widgets/expenses_list.dart';
+import 'package:flutter/material.dart';
 
 class ExpensesApp extends StatefulWidget {
   // registeredExpensesList is not anymore a private fixed list, it is now loaded from the database and passed to ExpenseApp from main.dart
   const ExpensesApp({
     super.key,
     required this.registeredExpensesList,
+    required this.onDeleteExpense,
   });
 
   final List<Expense> registeredExpensesList;
+  final void Function(Expense) onDeleteExpense;
 
   @override
   State<ExpensesApp> createState() {
@@ -19,38 +20,13 @@ class ExpensesApp extends StatefulWidget {
 }
 
 class _ExpensesAppState extends State<ExpensesApp> {
-  void _deleteExpense(Expense expense) {
-    int index = widget.registeredExpensesList.indexOf(expense);
-    setState(() {
-      widget.registeredExpensesList.remove(expense);
-      // delete the expense from the database
-      deleteExpense(expense);
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Expense Deleted"),
-        duration: Duration(seconds: 3),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            setState(() {
-              widget.registeredExpensesList.insert(index, expense);
-              // insret the expense again if the user revert the action
-              insertExpense(expense);
-            });
-          },
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget mainContent = Padding(
       padding: const EdgeInsets.all(10),
       child: Center(
         child: Text(
-          'No expenses found! Add some to see them here.',
+          'No expenses found! Add some, or select a different filter',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w500,
@@ -62,7 +38,7 @@ class _ExpensesAppState extends State<ExpensesApp> {
     if (widget.registeredExpensesList.isNotEmpty) {
       mainContent = ExpensesList(
         expensesList: widget.registeredExpensesList,
-        onDeleteExpense: _deleteExpense,
+        onDeleteExpense: widget.onDeleteExpense,
       );
     }
     return Scaffold(

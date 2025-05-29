@@ -1,8 +1,10 @@
-import 'package:expense_tracker/screens/filters_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+  const MainDrawer({super.key, required this.onFiltersTap});
+
+  final void Function() onFiltersTap;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,13 +44,7 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Filters'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (ctx) => FiltersScreen()),
-              );
-            },
+            onTap: onFiltersTap,
           )
         ],
       ),
