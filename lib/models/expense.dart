@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -32,11 +33,18 @@ class Expense {
       : id = id ?? Uuid().v4();
 
   final String id;
+=======
+import 'package:uuid/uuid.dart';
+
+class Expense {
+  final String id = Uuid().v4();
+>>>>>>> ece43b9fe1590fd809cc1ac7b291e32cd25651ec
   final String title;
   final double amount;
   final DateTime date;
   final Category category;
 
+<<<<<<< HEAD
   String get formattedDate {
     return DateFormat.yMd().format(date);
   }
@@ -75,3 +83,23 @@ class ExpenseBucket {
     return sum;
   }
 }
+=======
+  Expense({
+    required this.title,
+    required this.amount,
+    required this.date,
+    required this.category,
+  });
+}
+
+enum Category { food, travel, entertainment, utilities, others }
+
+final List<Expense> _registeredExpensesList = [
+  Expense(
+    amount: 5,
+    date: DateTime.now(),
+    title: 'Burger',
+    category: Category.food,
+  ),
+];
+>>>>>>> ece43b9fe1590fd809cc1ac7b291e32cd25651ec

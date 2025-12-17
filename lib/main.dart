@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:io';
 
 import 'package:expense_tracker/db/expense_storage.dart';
@@ -30,12 +31,29 @@ class MyApp extends StatelessWidget {
     super.key,
     required this.registeredExpenses,
   });
+=======
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+>>>>>>> ece43b9fe1590fd809cc1ac7b291e32cd25651ec
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
       // Pass the registered expenses to ExpensesApp to be displyed in the ListView
       home: TabsScreen(registeredExpensesList: registeredExpenses),
+=======
+      home: Scaffold(
+        appBar: AppBar(title: const Text('My Widget')),
+        body: const Center(child: Text('Hello, World!')),
+      ),
+>>>>>>> ece43b9fe1590fd809cc1ac7b291e32cd25651ec
     );
   }
 }
